@@ -1,0 +1,550 @@
+{
+	"info": {
+		"_postman_id": "12345678-1234-1234-1234-123456789012",
+		"name": "Payment Batch API",
+		"description": "API collection for testing the Payment Batch processing system with invoice management and reconciliation",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Invoice Management",
+			"item": [
+				{
+					"name": "Create Invoice",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"invoiceReference\": \"INV-001\",\n  \"amount\": 1000.00,\n  \"currency\": \"USD\",\n  \"description\": \"Payment for services rendered\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/invoices",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"invoices"
+							]
+						}
+					}
+				},
+				{
+					"name": "Create Invoice INV-002",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"invoiceReference\": \"INV-002\",\n  \"amount\": 750.50,\n  \"currency\": \"USD\",\n  \"description\": \"Equipment purchase\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/invoices",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"invoices"
+							]
+						}
+					}
+				},
+				{
+					"name": "Get All Invoices",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/invoices",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"invoices"
+							]
+						}
+					}
+				},
+				{
+					"name": "Get Invoice by ID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/invoices/1",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"invoices",
+								"1"
+							]
+						}
+					}
+				},
+				{
+					"name": "Update Invoice",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"invoiceReference\": \"INV-001\",\n  \"amount\": 1200.00,\n  \"currency\": \"USD\",\n  \"description\": \"Updated payment for services rendered\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/invoices/1",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"invoices",
+								"1"
+							]
+						}
+					}
+				}
+			]
+		},
+		{
+			"name": "Payment Batch Management",
+			"item": [
+				{
+					"name": "Create Payment Batch",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"batchReference\": \"BATCH-2024-001\",\n  \"paymentRequests\": [\n    {\n      \"amount\": 1000.00,\n      \"currency\": \"USD\",\n      \"invoiceReference\": \"INV-001\",\n      \"description\": \"Payment for services rendered\"\n    },\n    {\n      \"amount\": 750.50,\n      \"currency\": \"USD\",\n      \"invoiceReference\": \"INV-002\",\n      \"description\": \"Equipment purchase\"\n    }\n  ]\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/payment-batches",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"payment-batches"
+							]
+						}
+					}
+				},
+				{
+					"name": "Create Payment Batch with Mismatch",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"batchReference\": \"BATCH-2024-002\",\n  \"paymentRequests\": [\n    {\n      \"amount\": 900.00,\n      \"currency\": \"USD\",\n      \"invoiceReference\": \"INV-001\",\n      \"description\": \"Underpayment test\"\n    },\n    {\n      \"amount\": 800.00,\n      \"currency\": \"USD\",\n      \"invoiceReference\": \"INV-002\",\n      \"description\": \"Overpayment test\"\n    }\n  ]\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/payment-batches",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"payment-batches"
+							]
+						}
+					}
+				},
+				{
+					"name": "Get All Payment Batches",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/payment-batches",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"payment-batches"
+							]
+						}
+					}
+				},
+				{
+					"name": "Get Payment Batch by ID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/payment-batches/1",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"payment-batches",
+								"1"
+							]
+						}
+					}
+				},
+				{
+					"name": "Submit Payment Batch",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/payment-batches/1/submit",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"payment-batches",
+								"1",
+								"submit"
+							]
+						}
+					}
+				}
+			]
+		},
+		{
+			"name": "Reconciliation",
+			"item": [
+				{
+					"name": "Reconcile Payment Batch",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/payment-batches/1/reconcile",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"payment-batches",
+								"1",
+								"reconcile"
+							]
+						}
+					}
+				},
+				{
+					"name": "Get Reconciliation Result",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/payment-batches/1/reconciliation-result",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"payment-batches",
+								"1",
+								"reconciliation-result"
+							]
+						}
+					}
+				}
+			]
+		},
+		{
+			"name": "Error Cases",
+			"item": [
+				{
+					"name": "Create Duplicate Invoice",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"invoiceReference\": \"INV-001\",\n  \"amount\": 500.00,\n  \"currency\": \"USD\",\n  \"description\": \"Duplicate invoice test\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/invoices",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"invoices"
+							]
+						}
+					}
+				},
+				{
+					"name": "Create Batch with Invalid Invoice",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"batchReference\": \"BATCH-ERROR\",\n  \"paymentRequests\": [\n    {\n      \"amount\": 1000.00,\n      \"currency\": \"USD\",\n      \"invoiceReference\": \"INV-NONEXISTENT\",\n      \"description\": \"Payment for non-existent invoice\"\n    }\n  ]\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/payment-batches",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"payment-batches"
+							]
+						}
+					}
+				},
+				{
+					"name": "Submit Non-existent Batch",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/payment-batches/999/submit",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"payment-batches",
+								"999",
+								"submit"
+							]
+						}
+					}
+				},
+				{
+					"name": "Reconcile Non-submitted Batch",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/payment-batches/2/reconcile",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"payment-batches",
+								"2",
+								"reconcile"
+							]
+						}
+					}
+				},
+				{
+					"name": "Create Invalid Invoice (Missing Fields)",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"invoiceReference\": \"\",\n  \"amount\": -100.00,\n  \"currency\": \"\",\n  \"description\": \"Invalid invoice test\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/invoices",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"invoices"
+							]
+						}
+					}
+				}
+			]
+		},
+		{
+			"name": "Complete Workflow Test",
+			"item": [
+				{
+					"name": "1. Create Test Invoice",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"invoiceReference\": \"WORKFLOW-001\",\n  \"amount\": 2500.00,\n  \"currency\": \"USD\",\n  \"description\": \"Workflow test invoice\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/invoices",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"invoices"
+							]
+						}
+					}
+				},
+				{
+					"name": "2. Create Payment Batch",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"batchReference\": \"WORKFLOW-BATCH-001\",\n  \"paymentRequests\": [\n    {\n      \"amount\": 2500.00,\n      \"currency\": \"USD\",\n      \"invoiceReference\": \"WORKFLOW-001\",\n      \"description\": \"Complete workflow test payment\"\n    }\n  ]\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/payment-batches",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"payment-batches"
+							]
+						}
+					}
+				},
+				{
+					"name": "3. Submit Payment Batch",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/payment-batches/{{batchId}}/submit",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"payment-batches",
+								"{{batchId}}",
+								"submit"
+							]
+						}
+					}
+				},
+				{
+					"name": "4. Reconcile Payment Batch",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/payment-batches/{{batchId}}/reconcile",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"payment-batches",
+								"{{batchId}}",
+								"reconcile"
+							]
+						}
+					}
+				},
+				{
+					"name": "5. Get Final Reconciliation Result",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/payment-batches/{{batchId}}/reconciliation-result",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"payment-batches",
+								"{{batchId}}",
+								"reconciliation-result"
+							]
+						}
+					}
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "baseUrl",
+			"value": "http://localhost:8080",
+			"type": "string"
+		},
+		{
+			"key": "batchId",
+			"value": "1",
+			"type": "string"
+		}
+	]
+}
