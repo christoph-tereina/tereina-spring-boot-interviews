@@ -89,11 +89,7 @@ public class PaymentBatchService {
 
   public ReconciliationResultDto reconcilePaymentBatch(Long id) {
     /**
-    Match payment requests to invoices by ID/number
-    Validate currency matches
-    Check if payment amount matches invoice amount exactly
-    Identify discrepancies (overpayment, underpayment, missing invoices)
-    Update batch status based on reconciliation results
+    TODO
     */
     return null;
   }
